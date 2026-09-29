@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Stockroom - Inventory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <span class="brand-mark">+</span>
+
+        <span>stockroom</span>
+
+      </div>
+
+
+      <div class="workspace-switcher">
+
+        <span class="store-dot"></span>
+
+        Elrem Store
+
+        <span class="chevron">⌄</span>
+
+      </div>
+
+
+      <nav
+        class="nav-list"
+        aria-label="Main navigation">
+
+        <p class="nav-label">
+          Workspace
+        </p>
+
+
+        <a
+          href="index.html"
+          class="nav-item">
+
+          <span class="nav-icon">
+            ↗
+          </span>
+
+          Overview
+
+        </a>
+
+
+        <a
+          href="inventory.html"
+          class="nav-item active">
+
+          <span class="nav-icon">
+            ▦
+          </span>
+
+          Inventory
+
+        </a>
+
+
+        <a
+          href="products.html"
+          class="nav-item">
+
+          <span class="nav-icon">
+            ◈
+          </span>
+
+          Products
+
+        </a>
+
+
+        <a
+          href="sales.html"
+          class="nav-item">
+
+          <span class="nav-icon">
+            ◒
+          </span>
+
+          Sales
+
+        </a>
+
+      </nav>
+
+
+      <div class="sidebar-bottom">
+
+        <div class="sync-status">
+
+          <span class="pulse"></span>
+
+          Local mode
+
+          <small>
+            API connected
+          </small>
+
+        </div>
+
+
+        <button class="profile">
+
+          <span class="avatar">
+            AR
+          </span>
+
+
+          <span>
+
+            <strong>
+              Alex Rivera
+            </strong>
+
+            <small>
+              Store manager
+            </small>
+
+          </span>
+
+
+          <span class="dots">
+            •••
+          </span>
+
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+      <header class="topbar">
+
+        <div class="breadcrumb">
+
+          Elrem Store
+
+          <span>
+            /
+          </span>
+
+          Inventory
+
+        </div>
+
+
+        <div class="top-actions">
+
+          <button
+            class="icon-button"
+            title="Notifications">
+
+            ♧
+            <i></i>
+
+          </button>
+
+
+          <button class="help-button">
+            ?
+          </button>
+
+
+          <button class="avatar small">
+            AR
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <div class="page-wrap">
+
+
+        <!-- =================================================
+             PAGE HEADING
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <p
+              class="eyebrow"
+              id="currentDate">
+
+              Loading date...
+
+            </p>
+
+
+            <h1>
+              Inventory
+            </h1>
+
+
+            <p class="subheading">
+
+              Keep your stock levels healthy
+              and your shelves ready.
+
+            </p>
+
+          </div>
+
+
+          <button
+            class="primary-button"
+            onclick="goToProducts()">
+
+            <span>
+              +
+            </span>
+
+            Add product
+
+          </button>
+
+        </div>
+
+
+        <!-- =================================================
+             INVENTORY TABLE
+        ================================================== -->
+
+        <section class="panel table-panel">
+
+
+          <div class="table-toolbar">
+
+
+            <div>
+
+              <p class="eyebrow">
+                Catalog
+              </p>
+
+
+              <h2>
+
+                All products
+
+                <span
+                  class="count-badge"
+                  id="productCount">
+
+                  0
+
+                </span>
+
+              </h2>
+
+            </div>
+
+
+            <div class="toolbar-actions">
+
+
+              <label class="search">
+
+                <span>
+                  ⌕
+                </span>
+
+
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Search products"
+                  autocomplete="off"
+                />
+
+              </label>
+
+
+              <button
+                class="filter-button"
+                id="filterButton">
+
+                ☷ Filter
+
+              </button>
+
+
+            </div>
+
+          </div>
+
+
+          <div class="table-scroll">
+
+
+            <table>
+
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Product
+                  </th>
+
+                  <th>
+                    Category
+                  </th>
+
+                  <th>
+                    Stock level
+                  </th>
+
+                  <th>
+                    Price
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  <th></th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody
+                id="inventoryBody">
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       INVENTORY JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    let products = [];
+
+    let lowStockOnly = false;
+
+
+    // -----------------------------------------------------
+    // DATE
+    // -----------------------------------------------------
+
+    document.getElementById(
+      'currentDate'
+    ).textContent =
+      new Intl.DateTimeFormat(
+        'en-PH',
+        {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        }
+      ).format(new Date());
+
+
+    // -----------------------------------------------------
+    // LOAD PRODUCTS
+    // -----------------------------------------------------
+
+    async function loadProducts() {
+
+      const tbody =
+        document.getElementById(
+          'inventoryBody'
+        );
+
+
+      try {
+
+        const response =
+          await fetch('/api/products');
+
+
+        if (!response.ok) {
+          throw new Error(
+            'Failed to load products'
+          );
+        }
+
+
+        products =
+          await response.json();
+
+
+        renderInventory();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        tbody.innerHTML = `
+          <tr>
+            <td
+              colspan="6"
+              class="empty-state">
+
+              Failed to load inventory.
+
+            </td>
+          </tr>
+        `;
+
+      }
+
+    }
+
+
+    // -----------------------------------------------------
+    // RENDER INVENTORY
+    // -----------------------------------------------------
+
+    function renderInventory() {
+
+      const tbody =
+        document.getElementById(
+          'inventoryBody'
+        );
+
+
+      const query =
+        document.getElementById(
+          'searchInput'
+        ).value
+          .trim()
+          .toLowerCase();
+
+
+      let filtered =
+        products.filter(product => {
+
+          const matchesSearch =
+            product.name
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            product.category
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            product.supplier
+              .toLowerCase()
+              .includes(query);
+
+
+          const matchesFilter =
+            !lowStockOnly
+            ||
+            product.stock <= product.reorderAt;
+
+
+          return (
+            matchesSearch
+            &&
+            matchesFilter
+          );
+
+        });
+
+
+      document.getElementById(
+        'productCount'
+      ).textContent =
+        filtered.length;
+
+
+      if (filtered.length === 0) {
+
+        tbody.innerHTML = `
+          <tr>
+
+            <td
+              colspan="6"
+              class="empty-state">
+
+              No products found.
+
+            </td>
+
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      tbody.innerHTML =
+        filtered.map(
+          product =>
+            createProductRow(product)
+        ).join('');
+
+    }
+
+
+    // -----------------------------------------------------
+    // CREATE TABLE ROW
+    // -----------------------------------------------------
+
+    function createProductRow(product) {
+
+      const categoryClass =
+        product.category.toLowerCase();
+
+
+      const statusClass =
+        product.status
+          .toLowerCase()
+          .replaceAll(' ', '-');
+
+
+      const stockPercent =
+        product.reorderAt > 0
+          ? Math.min(
+              100,
+              Math.max(
+                0,
+                (product.stock /
+                  (product.reorderAt * 2)
+                ) * 100
+              )
+            )
+          : product.stock > 0
+            ? 100
+            : 0;
+
+
+      return `
+
+        <tr>
+
+          <td>
+
+            <span
+              class="product-thumb ${categoryClass}">
+
+              ${getIcon(product.category)}
+
+            </span>
+
+
+            <span class="table-product">
+
+              <strong>
+                ${escapeHtml(product.name)}
+              </strong>
+
+
+              <small>
+                ITM-${String(product.id).padStart(3, '0')}
+              </small>
+
+            </span>
+
+          </td>
+
+
+          <td>
+            ${escapeHtml(product.category)}
+          </td>
+
+
+          <td>
+
+            <div class="stock-cell">
+
+              <span>
+                ${product.stock} units
+              </span>
+
+
+              <div class="stock-track">
+
+                <i
+                  style="width: ${stockPercent}%;">
+
+                </i>
+
+              </div>
+
+            </div>
+
+          </td>
+
+
+          <td>
+
+            ₱${Number(product.price)
+              .toFixed(2)}
+
+          </td>
+
+
+          <td>
+
+            <span
+              class="status ${statusClass}">
+
+              ${product.status}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="row-actions">
+
+              <button
+                title="Edit product"
+                onclick="editProduct(${product.id})">
+
+                ✎
+
+              </button>
+
+
+              <button
+                title="Delete product"
+                onclick="deleteProduct(${product.id})">
+
+                ×
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+
+
+    // -----------------------------------------------------
+    // ICON
+    // -----------------------------------------------------
+
+    function getIcon(category) {
+
+      if (category === 'Home') {
+        return '⌂';
+      }
+
+      if (category === 'Kitchen') {
+        return '◒';
+      }
+
+      if (category === 'Stationery') {
+        return '✎';
+      }
+
+      if (category === 'Beauty') {
+        return '◉';
+      }
+
+      return '◌';
+
+    }
+
+
+    // -----------------------------------------------------
+    // SEARCH
+    // -----------------------------------------------------
+
+    document.getElementById(
+      'searchInput'
+    ).addEventListener(
+      'input',
+      renderInventory
+    );
+
+
+    // -----------------------------------------------------
+    // FILTER
+    // -----------------------------------------------------
+
+    document.getElementById(
+      'filterButton'
+    ).addEventListener(
+      'click',
+      () => {
+
+        lowStockOnly =
+          !lowStockOnly;
+
+
+        document.getElementById(
+          'filterButton'
+        ).textContent =
+          lowStockOnly
+            ? '☷ Low stock'
+            : '☷ Filter';
+
+
+        renderInventory();
+
+      }
+    );
+
+
+    // -----------------------------------------------------
+    // EDIT
+    // -----------------------------------------------------
+
+    function editProduct(id) {
+
+      // Open the Products page.
+      // The product itself can then be edited
+      // using the existing product modal.
+
+      window.location.href =
+        `products.html?edit=${id}`;
+
+    }
+
+
+    // -----------------------------------------------------
+    // DELETE
+    // -----------------------------------------------------
+
+    async function deleteProduct(id) {
+
+      const product =
+        products.find(
+          item => item.id === id
+        );
+
+
+      if (!product) {
+        return;
+      }
+
+
+      const confirmed =
+        window.confirm(
+          `Delete ${product.name}?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `/api/products/${id}`,
+            {
+              method: 'DELETE'
+            }
+          );
+
+
+        if (!response.ok) {
+
+          const error =
+            await response.json();
+
+
+          throw new Error(
+            error.error ||
+            'Failed to delete product'
+          );
+
+        }
+
+
+        await loadProducts();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+          `Failed to delete product: ${error.message}`
+        );
+
+      }
+
+    }
+
+
+    // -----------------------------------------------------
+    // ADD PRODUCT
+    // -----------------------------------------------------
+
+    function goToProducts() {
+
+      window.location.href =
+        'products.html';
+
+    }
+
+
+    // -----------------------------------------------------
+    // ESCAPE HTML
+    // -----------------------------------------------------
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // INITIAL LOAD
+    // -----------------------------------------------------
+
+    loadProducts();
+
+  </script>
+
+</body>
+
+</html>

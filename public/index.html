@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stockroom - Overview</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+        <span class="brand-mark">+</span>
+        <span>stockroom</span>
+      </div>
+
+      <div class="workspace-switcher">
+        <span class="store-dot"></span>
+        Elrem Store
+        <span class="chevron">⌄</span>
+      </div>
+
+      <nav class="nav-list" aria-label="Main navigation">
+
+        <p class="nav-label">Workspace</p>
+
+        <a href="index.html" class="nav-item active">
+          <span class="nav-icon">↗</span>
+          Overview
+        </a>
+
+        <a href="inventory.html" class="nav-item">
+          <span class="nav-icon">▦</span>
+          Inventory
+        </a>
+
+        <a href="products.html" class="nav-item">
+          <span class="nav-icon">◈</span>
+          Products
+        </a>
+
+        <a href="sales.html" class="nav-item">
+          <span class="nav-icon">◒</span>
+          Sales
+        </a>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <div class="sync-status">
+          <span class="pulse"></span>
+          Local mode
+          <small>API connected</small>
+        </div>
+
+        <button class="profile">
+
+          <span class="avatar">AR</span>
+
+          <span>
+            <strong>Alex Rivera</strong>
+            <small>Store manager</small>
+          </span>
+
+          <span class="dots">•••</span>
+
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+      <header class="topbar">
+
+        <div class="breadcrumb">
+          Elrem Store
+          <span>/</span>
+          Overview
+        </div>
+
+        <div class="top-actions">
+
+          <button class="icon-button" title="Notifications">
+            ♧
+            <i></i>
+          </button>
+
+          <button class="help-button">?</button>
+
+          <button class="avatar small">AR</button>
+
+        </div>
+
+      </header>
+
+
+      <div class="page-wrap">
+
+        <!-- =================================================
+             PAGE HEADING
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <p class="eyebrow" id="currentDate">
+              Loading date...
+            </p>
+
+            <h1>Good morning, Alex</h1>
+
+            <p class="subheading">
+              Here is what is happening across your store today.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STAT CARDS
+        ================================================== -->
+
+        <section class="stat-grid">
+
+          <article class="stat-card">
+
+            <span class="eyebrow">
+              Inventory value
+            </span>
+
+            <strong id="inventoryValue">
+              ₱0.00
+            </strong>
+
+            <span
+              class="stat-change green"
+              id="inventoryChange">
+              Live
+            </span>
+
+            <div class="mini-bars">
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <span class="eyebrow">
+              Units in stock
+            </span>
+
+            <strong id="unitsInStock">
+              0
+            </strong>
+
+            <span class="stat-change green">
+              Live
+            </span>
+
+            <div class="mini-bars">
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <span class="eyebrow">
+              Needs attention
+            </span>
+
+            <strong id="needsAttention">
+              0
+            </strong>
+
+            <span
+              class="stat-change orange"
+              id="attentionLabel">
+              Checking...
+            </span>
+
+            <div class="mini-bars">
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <span class="eyebrow">
+              Sales this week
+            </span>
+
+            <strong id="salesThisWeek">
+              ₱0.00
+            </strong>
+
+            <span
+              class="stat-change green"
+              id="salesChange">
+              Live
+            </span>
+
+            <div class="mini-bars">
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTENT GRID
+        ================================================== -->
+
+        <div class="content-grid">
+
+
+          <!-- =================================================
+               REVENUE CHART
+          ================================================== -->
+
+          <section class="panel chart-panel">
+
+            <div class="panel-heading">
+
+              <div>
+
+                <p class="eyebrow">
+                  Revenue overview
+                </p>
+
+                <h2>
+
+                  <span id="revenueTotal">
+                    ₱0.00
+                  </span>
+
+                  <span
+                    class="positive"
+                    id="revenuePercentage">
+                    0%
+                  </span>
+
+                </h2>
+
+              </div>
+
+              <select id="chartPeriod">
+
+                <option value="7">
+                  Last 7 days
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="chart">
+
+              <div class="chart-y">
+
+                <span id="chartY1">₱0</span>
+                <span id="chartY2">₱0</span>
+                <span id="chartY3">₱0</span>
+                <span>₱0</span>
+
+              </div>
+
+
+              <div class="chart-body">
+
+                <div class="grid-lines">
+
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+
+                </div>
+
+
+                <svg
+                  viewBox="0 0 620 220"
+                  preserveAspectRatio="none"
+                  aria-label="Revenue chart"
+                  id="revenueChart">
+
+                  <path
+                    id="revenueLine"
+                    d=""
+                    fill="none"
+                    stroke="#c85b38"
+                    stroke-width="3"
+                    vector-effect="non-scaling-stroke">
+                  </path>
+
+
+                  <path
+                    id="revenueArea"
+                    d=""
+                    fill="url(#area)"
+                    opacity=".22">
+                  </path>
+
+
+                  <defs>
+
+                    <linearGradient
+                      id="area"
+                      x1="0"
+                      x2="0"
+                      y1="0"
+                      y2="1">
+
+                      <stop
+                        stop-color="#c85b38">
+                      </stop>
+
+                      <stop
+                        offset="1"
+                        stop-color="#fff8f2"
+                        stop-opacity="0">
+                      </stop>
+
+                    </linearGradient>
+
+                  </defs>
+
+                </svg>
+
+
+                <div
+                  class="chart-x"
+                  id="chartLabels">
+
+                  <span>--</span>
+                  <span>--</span>
+                  <span>--</span>
+                  <span>--</span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               NEEDS ATTENTION
+          ================================================== -->
+
+          <section class="panel attention-panel">
+
+            <div class="panel-heading">
+
+              <div>
+
+                <p class="eyebrow">
+                  Stock watch
+                </p>
+
+                <h2>
+                  Needs attention
+                </h2>
+
+              </div>
+
+              <a
+                href="inventory.html"
+                class="text-button"
+                style="text-decoration:none;">
+
+                View all →
+
+              </a>
+
+            </div>
+
+
+            <div
+              class="attention-list"
+              id="attentionList">
+
+            </div>
+
+
+            <button
+              class="add-stock-button"
+              onclick="window.location.href='products.html'">
+
+              + Add stock item
+
+            </button>
+
+          </section>
+
+        </div>
+
+
+        <!-- =================================================
+             RECENT ACTIVITY
+        ================================================== -->
+
+        <section class="panel activity-panel">
+
+          <div class="panel-heading">
+
+            <div>
+
+              <p class="eyebrow">
+                Recent activity
+              </p>
+
+              <h2>
+                Latest updates
+              </h2>
+
+            </div>
+
+            <a
+              href="sales.html"
+              class="text-button"
+              style="text-decoration:none;">
+
+              View activity →
+
+            </a>
+
+          </div>
+
+
+          <div class="activity-table">
+
+            <div class="activity-head">
+
+              <span>Activity</span>
+              <span>By</span>
+              <span>When</span>
+
+            </div>
+
+
+            <div id="activityList">
+
+              <div class="activity-row">
+
+                <span>
+                  Loading activity...
+                </span>
+
+                <span></span>
+
+                <span></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       DASHBOARD JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    // -----------------------------------------------------
+    // FORMAT PESOS
+    // -----------------------------------------------------
+
+    function formatPeso(value) {
+
+      return new Intl.NumberFormat(
+        'en-PH',
+        {
+          style: 'currency',
+          currency: 'PHP'
+        }
+      ).format(Number(value) || 0);
+
+    }
+
+
+    // -----------------------------------------------------
+    // FORMAT DATE
+    // -----------------------------------------------------
+
+    function formatDate(date) {
+
+      return new Intl.DateTimeFormat(
+        'en-PH',
+        {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        }
+      ).format(date);
+
+    }
+
+
+    // -----------------------------------------------------
+    // RELATIVE TIME
+    // -----------------------------------------------------
+
+    function relativeTime(dateString) {
+
+      const date =
+        new Date(dateString);
+
+      const now =
+        new Date();
+
+      const seconds =
+        Math.floor(
+          (now - date) / 1000
+        );
+
+
+      if (seconds < 60) {
+        return `${Math.max(seconds, 0)} sec ago`;
+      }
+
+
+      const minutes =
+        Math.floor(seconds / 60);
+
+
+      if (minutes < 60) {
+        return `${minutes} min ago`;
+      }
+
+
+      const hours =
+        Math.floor(minutes / 60);
+
+
+      if (hours < 24) {
+        return `${hours} hr ago`;
+      }
+
+
+      const days =
+        Math.floor(hours / 24);
+
+
+      return `${days} day${days === 1 ? '' : 's'} ago`;
+    }
+
+
+    // -----------------------------------------------------
+    // PRODUCT ICON
+    // -----------------------------------------------------
+
+    function getIcon(category) {
+
+      if (category === 'Home') {
+        return '⌂';
+      }
+
+      if (category === 'Kitchen') {
+        return '◒';
+      }
+
+      if (category === 'Accessories') {
+        return '◌';
+      }
+
+      if (category === 'Stationery') {
+        return '✎';
+      }
+
+      if (category === 'Beauty') {
+        return '◉';
+      }
+
+      return '◌';
+    }
+
+
+    // -----------------------------------------------------
+    // LOAD DASHBOARD
+    // -----------------------------------------------------
+
+    async function loadDashboard() {
+
+      try {
+
+        const response =
+          await fetch('/api/dashboard');
+
+
+        if (!response.ok) {
+          throw new Error(
+            'Failed to load dashboard'
+          );
+        }
+
+
+        const data =
+          await response.json();
+
+
+        updateDashboard(data);
+
+      } catch (error) {
+
+        console.error(error);
+
+        document.getElementById(
+          'activityList'
+        ).innerHTML = `
+          <div class="empty-state">
+            Unable to load dashboard data.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    // -----------------------------------------------------
+    // UPDATE DASHBOARD
+    // -----------------------------------------------------
+
+    function updateDashboard(data) {
+
+      // Date
+      document.getElementById(
+        'currentDate'
+      ).textContent =
+        formatDate(new Date());
+
+
+      // Inventory value
+      document.getElementById(
+        'inventoryValue'
+      ).textContent =
+        formatPeso(data.inventoryValue);
+
+
+      // Units
+      document.getElementById(
+        'unitsInStock'
+      ).textContent =
+        Number(
+          data.unitsInStock
+        ).toLocaleString();
+
+
+      // Needs attention
+      document.getElementById(
+        'needsAttention'
+      ).textContent =
+        Number(
+          data.needsAttention
+        );
+
+
+      document.getElementById(
+        'attentionLabel'
+      ).textContent =
+        data.needsAttention > 0
+          ? 'Review now'
+          : 'All clear';
+
+
+      // Sales
+      document.getElementById(
+        'salesThisWeek'
+      ).textContent =
+        formatPeso(
+          data.salesThisWeek
+        );
+
+
+      // Sales percentage
+      const change =
+        Number(data.salesChange) || 0;
+
+
+      const changeElement =
+        document.getElementById(
+          'salesChange'
+        );
+
+
+      if (change > 0) {
+
+        changeElement.textContent =
+          `↗ ${change.toFixed(1)}%`;
+
+        changeElement.className =
+          'stat-change green';
+
+      } else if (change < 0) {
+
+        changeElement.textContent =
+          `↘ ${Math.abs(change).toFixed(1)}%`;
+
+        changeElement.className =
+          'stat-change orange';
+
+      } else {
+
+        changeElement.textContent =
+          'No change';
+
+        changeElement.className =
+          'stat-change green';
+
+      }
+
+
+      // Revenue total
+      document.getElementById(
+        'revenueTotal'
+      ).textContent =
+        formatPeso(
+          data.salesThisWeek
+        );
+
+
+      document.getElementById(
+        'revenuePercentage'
+      ).textContent =
+        `${change >= 0 ? '+' : ''}${change.toFixed(1)}%`;
+
+
+      renderAttention(
+        data.attentionProducts
+      );
+
+
+      renderActivity(
+        data.recentActivity
+      );
+
+
+      renderChart(
+        data.dailySales
+      );
+
+    }
+
+
+    // -----------------------------------------------------
+    // ATTENTION LIST
+    // -----------------------------------------------------
+
+    function renderAttention(products) {
+
+      const container =
+        document.getElementById(
+          'attentionList'
+        );
+
+
+      if (!products.length) {
+
+        container.innerHTML = `
+          <div class="empty-state">
+            All stock levels look healthy.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        products.map(item => {
+
+          const categoryClass =
+            item.category.toLowerCase();
+
+
+          const statusClass =
+            item.status
+              .toLowerCase()
+              .replaceAll(' ', '-');
+
+
+          return `
+
+            <div class="attention-row">
+
+              <span class="product-thumb ${categoryClass}">
+                ${getIcon(item.category)}
+              </span>
+
+              <span class="item-copy">
+
+                <strong>
+                  ${escapeHtml(item.name)}
+                </strong>
+
+                <small>
+                  ITM-${String(item.id).padStart(3, '0')}
+                  ·
+                  ${escapeHtml(item.category)}
+                  ·
+                  ${item.stock} units
+                </small>
+
+              </span>
+
+              <span class="status ${statusClass}">
+                ${item.status}
+              </span>
+
+            </div>
+
+          `;
+
+        }).join('');
+
+    }
+
+
+    // -----------------------------------------------------
+    // ACTIVITY
+    // -----------------------------------------------------
+
+    function renderActivity(activities) {
+
+      const container =
+        document.getElementById(
+          'activityList'
+        );
+
+
+      if (!activities.length) {
+
+        container.innerHTML = `
+          <div class="empty-state">
+            No recent activity yet.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        activities.map(activity => {
+
+          const iconClass =
+            activity.type === 'sale'
+              ? 'sale'
+              : 'receive';
+
+
+          const icon =
+            activity.type === 'sale'
+              ? '↗'
+              : '↓';
+
+
+          return `
+
+            <div class="activity-row">
+
+              <span>
+
+                <b class="activity-icon ${iconClass}">
+                  ${icon}
+                </b>
+
+                <strong>
+                  ${escapeHtml(activity.title)}
+                </strong>
+
+                <small>
+                  ${escapeHtml(activity.detail)}
+                </small>
+
+              </span>
+
+              <span>
+                ${escapeHtml(activity.actor)}
+              </span>
+
+              <span>
+                ${relativeTime(activity.activityTime)}
+              </span>
+
+            </div>
+
+          `;
+
+        }).join('');
+
+    }
+
+
+    // -----------------------------------------------------
+    // REVENUE CHART
+    // -----------------------------------------------------
+
+    function renderChart(dailySales) {
+
+      if (!dailySales.length) {
+        return;
+      }
+
+
+      const values =
+        dailySales.map(
+          item => Number(item.total) || 0
+        );
+
+
+      const maxValue =
+        Math.max(...values, 1);
+
+
+      // Y-axis labels
+      document.getElementById(
+        'chartY1'
+      ).textContent =
+        formatCompactPeso(maxValue);
+
+
+      document.getElementById(
+        'chartY2'
+      ).textContent =
+        formatCompactPeso(maxValue * 0.67);
+
+
+      document.getElementById(
+        'chartY3'
+      ).textContent =
+        formatCompactPeso(maxValue * 0.33);
+
+
+      // Generate points
+      const width = 620;
+      const height = 220;
+
+
+      const horizontalPadding = 4;
+      const verticalPadding = 20;
+
+
+      const step =
+        values.length > 1
+          ? (width - horizontalPadding * 2)
+            / (values.length - 1)
+          : width;
+
+
+      const points =
+        values.map((value, index) => {
+
+          const x =
+            horizontalPadding +
+            step * index;
+
+
+          const y =
+            height -
+            verticalPadding -
+            (value / maxValue) *
+            (height - verticalPadding * 2);
+
+
+          return {
+            x,
+            y
+          };
+
+        });
+
+
+      // Create smooth-ish line
+      let pathData = '';
+
+
+      points.forEach((point, index) => {
+
+        if (index === 0) {
+
+          pathData +=
+            `M${point.x} ${point.y}`;
+
+        } else {
+
+          const previous =
+            points[index - 1];
+
+          const controlX =
+            (previous.x + point.x) / 2;
+
+
+          pathData +=
+            ` C${controlX} ${previous.y} `
+            + `${controlX} ${point.y} `
+            + `${point.x} ${point.y}`;
+
+        }
+
+      });
+
+
+      const areaPath =
+        pathData +
+        ` L${points[points.length - 1].x} ${height}`
+        + ` L${points[0].x} ${height} Z`;
+
+
+      document.getElementById(
+        'revenueLine'
+      ).setAttribute(
+        'd',
+        pathData
+      );
+
+
+      document.getElementById(
+        'revenueArea'
+      ).setAttribute(
+        'd',
+        areaPath
+      );
+
+
+      // Chart labels
+      const labelIndexes = [
+        0,
+        Math.floor(values.length / 3),
+        Math.floor(values.length * 2 / 3),
+        values.length - 1
+      ];
+
+
+      const labels =
+        document.querySelectorAll(
+          '#chartLabels span'
+        );
+
+
+      labelIndexes.forEach(
+        (index, labelIndex) => {
+
+          const date =
+            new Date(
+              dailySales[index].date
+            );
+
+
+          labels[labelIndex].textContent =
+            date.toLocaleDateString(
+              'en-PH',
+              {
+                month: 'short',
+                day: '2-digit'
+              }
+            );
+
+        }
+      );
+
+    }
+
+
+    function formatCompactPeso(value) {
+
+      const number =
+        Number(value) || 0;
+
+
+      if (number >= 1000) {
+
+        return `₱${Math.round(
+          number / 1000
+        )}k`;
+
+      }
+
+
+      return `₱${Math.round(number)}`;
+
+    }
+
+
+    // -----------------------------------------------------
+    // ESCAPE HTML
+    // -----------------------------------------------------
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replaceAll('&', '&amp;')
+
+        .replaceAll('<', '&lt;')
+
+        .replaceAll('>', '&gt;')
+
+        .replaceAll('"', '&quot;')
+
+        .replaceAll("'", '&#039;');
+
+    }
+
+
+    // -----------------------------------------------------
+    // START
+    // -----------------------------------------------------
+
+    loadDashboard();
+
+  </script>
+
+</body>
+</html>
